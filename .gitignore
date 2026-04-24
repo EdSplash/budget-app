@@ -1,0 +1,14 @@
+# Visual Studio local folder
+.vs/
+
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.rsuser
+
+# Solution state
+*.sln.docstates
