@@ -18,8 +18,9 @@ namespace BudgetAppV2.Models
           public Category? Category { get; set; }
           public override string ToString()
           {
+               string categoryType = Category != null ? Category.Type.ToString() : "Unknown Type";
                string categoryName = Category != null ? Category.Name : "Unknown Category"; // Safety net if there is no name stored in Category object
-               return $"{Date.ToShortDateString()} | {categoryName} | {Amount:C} | {Description}";
+               return $"{Date.ToShortDateString()} | {categoryType} | {categoryName} | {Amount:C} | {Description}";
           }
 
      }

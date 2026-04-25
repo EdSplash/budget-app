@@ -37,9 +37,6 @@
                lblAmount = new Label();
                lblDate = new Label();
                lblCategory = new Label();
-               btnOpenCategories = new Button();
-               btnPeriodBudget = new Button();
-               btnCategoryBudgets = new Button();
                ((System.ComponentModel.ISupportInitialize)nudAmount).BeginInit();
                SuspendLayout();
                // 
@@ -58,7 +55,7 @@
                dtpTransactionDate.Location = new Point(243, 182);
                dtpTransactionDate.Margin = new Padding(3, 4, 3, 4);
                dtpTransactionDate.Name = "dtpTransactionDate";
-               dtpTransactionDate.Size = new Size(237, 27);
+               dtpTransactionDate.Size = new Size(262, 27);
                dtpTransactionDate.TabIndex = 1;
                // 
                // lstTransactions
@@ -104,7 +101,7 @@
                // lblAmount
                // 
                lblAmount.AutoSize = true;
-               lblAmount.Location = new Point(181, 80);
+               lblAmount.Location = new Point(171, 80);
                lblAmount.Name = "lblAmount";
                lblAmount.Size = new Size(65, 20);
                lblAmount.TabIndex = 6;
@@ -128,47 +125,12 @@
                lblCategory.TabIndex = 8;
                lblCategory.Text = "Category:";
                // 
-               // btnOpenCategories
-               // 
-               btnOpenCategories.Location = new Point(12, 40);
-               btnOpenCategories.Margin = new Padding(3, 4, 3, 4);
-               btnOpenCategories.Name = "btnOpenCategories";
-               btnOpenCategories.Size = new Size(125, 38);
-               btnOpenCategories.TabIndex = 9;
-               btnOpenCategories.Text = "Categories";
-               btnOpenCategories.UseVisualStyleBackColor = true;
-               btnOpenCategories.Click += btnOpenCategories_Click;
-               // 
-               // btnPeriodBudget
-               // 
-               btnPeriodBudget.Location = new Point(12, 98);
-               btnPeriodBudget.Margin = new Padding(3, 4, 3, 4);
-               btnPeriodBudget.Name = "btnPeriodBudget";
-               btnPeriodBudget.Size = new Size(125, 38);
-               btnPeriodBudget.TabIndex = 10;
-               btnPeriodBudget.Text = "PeriodBudget";
-               btnPeriodBudget.UseVisualStyleBackColor = true;
-               btnPeriodBudget.Click += btnPeriodBudget_Click;
-               // 
-               // btnCategoryBudgets
-               // 
-               btnCategoryBudgets.Location = new Point(12, 155);
-               btnCategoryBudgets.Margin = new Padding(3, 4, 3, 4);
-               btnCategoryBudgets.Name = "btnCategoryBudgets";
-               btnCategoryBudgets.Size = new Size(137, 38);
-               btnCategoryBudgets.TabIndex = 15;
-               btnCategoryBudgets.Text = "Category Budgets";
-               btnCategoryBudgets.UseVisualStyleBackColor = true;
-               btnCategoryBudgets.Click += btnCategoryBudgets_Click;
-               // 
                // TransactionsForm
                // 
                AutoScaleDimensions = new SizeF(8F, 20F);
                AutoScaleMode = AutoScaleMode.Font;
+               BackColor = Color.Lavender;
                ClientSize = new Size(800, 562);
-               Controls.Add(btnCategoryBudgets);
-               Controls.Add(btnPeriodBudget);
-               Controls.Add(btnOpenCategories);
                Controls.Add(lblCategory);
                Controls.Add(lblDate);
                Controls.Add(lblAmount);
@@ -199,8 +161,5 @@
           private System.Windows.Forms.Label lblAmount;
           private System.Windows.Forms.Label lblDate;
           private System.Windows.Forms.Label lblCategory;
-          private System.Windows.Forms.Button btnOpenCategories;
-          private System.Windows.Forms.Button btnPeriodBudget;
-          private System.Windows.Forms.Button btnCategoryBudgets;
      }
 }

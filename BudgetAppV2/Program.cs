@@ -18,7 +18,7 @@ namespace BudgetAppV2
                {
                     context.Database.Migrate();
                }
-               Application.Run(new CategoriesForm());
+               Application.Run(new MainMenuForm());
           }
      }
 }

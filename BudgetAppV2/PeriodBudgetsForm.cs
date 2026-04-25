@@ -91,20 +91,21 @@ namespace BudgetAppV2
                form.Show();
                this.Hide();
           }
-                    
+
           private void btnCategoryBudgets_Click(object sender, EventArgs e)
           {
-              CategoryBudgetsForm form = new CategoryBudgetsForm();
-              form.Show();
-              this.Hide();
+               CategoryBudgetsForm form = new CategoryBudgetsForm();
+               form.Show();
+               this.Hide();
           }
-          
+
 
           private void PeriodBudgetForm_Load(object sender, EventArgs e)
           {
                RefreshPeriodBudgetList();
                ResetPeriodBudgetForm();
+               
+               
           }
-          
      }
 }

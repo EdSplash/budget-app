@@ -160,7 +160,7 @@ namespace BudgetAppV2
                ResetCategoryBudgetForm();
 
           }
-
+          /*
           private void btnCategories_Click(object sender, EventArgs e)
           {
                CategoriesForm form = new CategoriesForm();
@@ -181,5 +181,6 @@ namespace BudgetAppV2
                form.Show();
                this.Hide();
           }
+          */
      }
 }
