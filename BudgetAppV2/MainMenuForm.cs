@@ -136,11 +136,109 @@ namespace BudgetAppV2
                     // Calculates Budget Left and sets it
                     decimal budgetLeft = selectedPeriod.TotalLimit - totalExpenses;
                     lblTotalRemaining.Text = budgetLeft.ToString("C");
-               }
-                
-                
-               
 
+                    LoadCategoryBreakdown(selectedPeriod);
+               }
+           
+          }
+
+          private void LoadCategoryBreakdown(PeriodBudget selectedPeriod)
+          {
+               // Clear the table
+               dgvCategoryBreakdown.Rows.Clear(); 
+
+               // Access the Database
+               using (var context = new BudgetAppContext())
+               {
+                    // List of Category Budgets in current period
+                    var categoryBudgets = context.CategoryBudgets
+                         .Include(cb => cb.Category)  // Include Category entity from CategoryBudgets
+                         .Where(cb => cb.PeriodBudgetId == selectedPeriod.Id)  // Adds Category Budgets that have same PeriodBudgetId 
+                         .ToList();                                            // as the selected PeriodBudget to a list
+
+                    // List of CategoryIds that were budgeted
+                    var budgetedCategoryIds = categoryBudgets
+                         .Select(cb => cb.CategoryId)  // Takes CategoryIds from CategoryBudgets and adds to list
+                         .ToList();
+
+                    // Loop for adding rows to table
+                    foreach (var categoryBudget in categoryBudgets)
+                    {
+                         // Gets Category name from categoryBudget, checks if not null, then use the name, else "Unknown Category"
+                         string categoryName = categoryBudget.Category != null
+                              ? categoryBudget.Category.Name
+                              : "Unknown Category";
+
+                         // Gets the set Limit for each Category Budget
+                         decimal budgetedAmount = categoryBudget.Limit; 
+
+                         // Gets the amount spent for each category from transactions in current period
+                         decimal amountSpent = context.Transactions
+                              .Where(t => t.Date >= selectedPeriod.PeriodStartDate && // Transactions after PeriodStartDate
+                                   t.Date <= selectedPeriod.PeriodEndDate &&  // Transactions before PeriodEndDate
+                                   t.CategoryId == categoryBudget.CategoryId)  // Gets the Category from categoryBudget list for current period
+                              .Sum(t => (decimal?)t.Amount) ?? 0; // Adds up transactions with same category, if null then 0
+
+                         // Calculates how much budget is left in each category
+                         decimal budgetRemaining = budgetedAmount - amountSpent;
+
+                         // Calculates percentage of category budget used
+                         string percentUsed;
+
+                         // Prevent division by 0
+                         if (budgetedAmount > 0)
+                         {
+                              percentUsed = (amountSpent / budgetedAmount).ToString("P0"); // Turns to Percentage with no decimals
+                         }
+                         else percentUsed = "Unbudgeted"; // For categories that weren't given a budget
+
+                         // Adds all the stats to the table
+                         dgvCategoryBreakdown.Rows.Add(
+                              categoryName,
+                              amountSpent,
+                              budgetedAmount.ToString("C"),
+                              budgetRemaining,
+                              percentUsed
+                              );
+
+                    }
+
+                    // Gets all the transaction categories that weren't assigned a budget
+                    var unbudgetedCategories = context.Transactions
+                              .Where(t =>
+                                   t.Date >= selectedPeriod.PeriodStartDate &&
+                                   t.Date <= selectedPeriod.PeriodEndDate &&
+                                   t.Category != null &&
+                                   t.Category.Type == CategoryType.Expense &&  // Expense transactions only; CategoryBudgets only take expense type already
+                                   !budgetedCategoryIds.Contains(t.CategoryId)) // Gets categories not in budgetedCateoryId list
+                              .GroupBy(t => t.CategoryId)  // All transactions of same category are grouped
+                              .Select(g => new // g represents a single group
+                              {
+                                   CategoryName = g.First().Category != null  // Takes first transactions category
+                                   ? g.First().Category.Name                  // object since they all have same category
+                                   : "Unknown Category",
+                                   SpentAmount = g.Sum(t => t.Amount) // Adds all transactions in group
+                              }
+                              ).ToList();
+
+                    // Adds each unbudgeted category to the table
+                    foreach (var group in unbudgetedCategories)
+                    {
+                         decimal budgetedAmount = 0;
+                         decimal spentAmount = group.SpentAmount;
+                         decimal remainingAmount = budgetedAmount - spentAmount;
+                         string percentUsed = "Unbudgeted";
+
+                         dgvCategoryBreakdown.Rows.Add(
+                             group.CategoryName,
+                             budgetedAmount.ToString("C"),
+                             spentAmount.ToString("C"),
+                             remainingAmount.ToString("C"),
+                             percentUsed
+                         );
+                    }
+
+               }
 
           }
      }

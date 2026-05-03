@@ -36,6 +36,8 @@
                label1 = new Label();
                label2 = new Label();
                lblLimit = new Label();
+               btnDeleteCB = new Button();
+               btnEditCB = new Button();
                ((System.ComponentModel.ISupportInitialize)nudLimitAmount).BeginInit();
                SuspendLayout();
                // 
@@ -74,7 +76,7 @@
                btnAddCategoryBudget.Location = new Point(114, 356);
                btnAddCategoryBudget.Margin = new Padding(3, 4, 3, 4);
                btnAddCategoryBudget.Name = "btnAddCategoryBudget";
-               btnAddCategoryBudget.Size = new Size(152, 35);
+               btnAddCategoryBudget.Size = new Size(169, 35);
                btnAddCategoryBudget.TabIndex = 3;
                btnAddCategoryBudget.Text = "Add Category Budget";
                btnAddCategoryBudget.UseVisualStyleBackColor = true;
@@ -116,12 +118,34 @@
                lblLimit.TabIndex = 10;
                lblLimit.Text = "Limit";
                // 
+               // btnDeleteCB
+               // 
+               btnDeleteCB.Location = new Point(423, 425);
+               btnDeleteCB.Name = "btnDeleteCB";
+               btnDeleteCB.Size = new Size(178, 35);
+               btnDeleteCB.TabIndex = 11;
+               btnDeleteCB.Text = "Delete Category Budget";
+               btnDeleteCB.UseVisualStyleBackColor = true;
+               btnDeleteCB.Click += btnDeleteCB_Click;
+               // 
+               // btnEditCB
+               // 
+               btnEditCB.Location = new Point(607, 425);
+               btnEditCB.Name = "btnEditCB";
+               btnEditCB.Size = new Size(169, 35);
+               btnEditCB.TabIndex = 12;
+               btnEditCB.Text = "Edit Category Budget";
+               btnEditCB.UseVisualStyleBackColor = true;
+               btnEditCB.Click += btnEditCB_Click;
+               // 
                // CategoryBudgetsForm
                // 
                AutoScaleDimensions = new SizeF(8F, 20F);
                AutoScaleMode = AutoScaleMode.Font;
                BackColor = Color.Lavender;
                ClientSize = new Size(800, 562);
+               Controls.Add(btnEditCB);
+               Controls.Add(btnDeleteCB);
                Controls.Add(lblLimit);
                Controls.Add(label2);
                Controls.Add(label1);
@@ -150,5 +174,7 @@
           private System.Windows.Forms.Label label1;
           private System.Windows.Forms.Label label2;
           private System.Windows.Forms.Label lblLimit;
+          private Button btnDeleteCB;
+          private Button btnEditCB;
      }
 }

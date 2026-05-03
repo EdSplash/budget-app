@@ -182,20 +182,23 @@ namespace BudgetAppV2
 
           private void btnEditCategory_Click(object sender, EventArgs e)
           {
+               // Check if Category from list is selected
                if (lstCategories.SelectedItem == null)
                {
                     MessageBox.Show("Please select a category to edit.");
                     return;
                }
 
+               // Check if Category Name is empty
                if (string.IsNullOrWhiteSpace(txtCategoryName.Text))
                {
                     MessageBox.Show("Please enter a Category Name");
                     return;
                }
 
-               CategoryType selectedType;
+               CategoryType selectedType; // Variable to store selectedType
 
+               // Sets selectedType to whichever radio button is checked
                if (rbIncome.Checked)
                {
                     selectedType = CategoryType.Income;

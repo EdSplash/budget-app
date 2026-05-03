@@ -39,12 +39,12 @@ namespace BudgetAppV2
                     MessageBox.Show("Must select a Period Budget from the list");
                     return;
                }
-               
+
 
                // Cast objects
                Category selectedCategory = (Category)cboCategories.SelectedItem;
                PeriodBudget selectedPeriodBudget = (PeriodBudget)cboPeriodBudgets.SelectedItem;
-               
+
                using (var context = new BudgetAppContext())
                {
                     var periodBudgetDb = context.PeriodBudgets
@@ -104,7 +104,7 @@ namespace BudgetAppV2
                          cboCategories.Items.Add(category);
                     }
                }
-               
+
           }
 
           private void LoadPeriodBudgets()
@@ -120,7 +120,7 @@ namespace BudgetAppV2
                          cboPeriodBudgets.Items.Add(periodBudget);
                     }
                }
-               
+
           }
 
           private void RefreshCategoryBudgetList()
@@ -160,27 +160,87 @@ namespace BudgetAppV2
                ResetCategoryBudgetForm();
 
           }
-          /*
-          private void btnCategories_Click(object sender, EventArgs e)
+
+          private void btnDeleteCB_Click(object sender, EventArgs e)
           {
-               CategoriesForm form = new CategoriesForm();
-               form.Show();
-               this.Hide();
+
           }
 
-          private void btnTransactions_Click(object sender, EventArgs e)
+          private void btnEditCB_Click(object sender, EventArgs e)
           {
-               TransactionsForm form = new TransactionsForm();
-               form.Show();
-               this.Hide();
-          }
+               // Checks if a Category Budget from list is selected
+               if (lstCategoryBudget.SelectedItem == null)
+               {
+                    MessageBox.Show("Please select a category budget to edit.");
+                    return;
+               }
 
-          private void btnPeriodBudgets_Click(object sender, EventArgs e)
-          {
-               PeriodBudgetsForm form = new PeriodBudgetsForm();
-               form.Show();
-               this.Hide();
+               // Checks if a category is selected in Category cbo
+               if (cboCategories.SelectedItem == null)
+               {
+                    MessageBox.Show("Must asign a category.");
+                    return;
+               }
+
+               // Validation that period is selected
+               if (cboPeriodBudgets.SelectedItem == null)
+               {
+                    MessageBox.Show("Must assign a period.");
+                    return;
+               }
+
+               // Validation for a poitivve number
+               if (nudLimitAmount.Value <= 0)
+               {
+                    MessageBox.Show("Must enter a value that is non-negative and greater than 0.");
+                    return;
+               }
+
+               // Assign selected CategoryBudget from list
+               CategoryBudget selectedCategoryBudget = (CategoryBudget)lstCategoryBudget.SelectedItem;
+
+               // Assign updated values
+               Category updatedCategory = (Category)cboCategories.SelectedItem;
+               PeriodBudget updatedPeriod = (PeriodBudget)cboPeriodBudgets.SelectedItem;
+               decimal updatedLimit = nudLimitAmount.Value;
+               
+               using (var context = new BudgetAppContext())
+               {
+                    var categoryBudgetToEdit = context.CategoryBudgets.Find(selectedCategoryBudget.Id);
+
+                    // Validation to see if the selected CategoryBudget exists in database
+                    if (categoryBudgetToEdit == null)
+                    {
+                         MessageBox.Show("Could not finde selected CategoryBudget in Database.");
+                         return;
+                    }
+
+                    // Duplicate check
+                    bool duplicateExists = context.CategoryBudgets.Any(cb =>
+                        cb.Id != selectedCategoryBudget.Id &&  // Compares to every CB except the one we are editting
+                        cb.PeriodBudgetId == updatedPeriod.Id &&
+                        cb.CategoryId == updatedCategory.Id);
+                    if (duplicateExists)
+                    {
+                         MessageBox.Show("This category already exists within this Period Budget. Try again");
+                         return;
+                    }
+                    try
+                    {
+                         categoryBudgetToEdit.CategoryId = updatedCategory.Id;
+                         categoryBudgetToEdit.PeriodBudgetId = updatedPeriod.Id;
+                         categoryBudgetToEdit.Limit = updatedLimit;
+                         context.SaveChanges();
+                    }
+                    catch
+                    {
+                         MessageBox.Show("This edit could not be made at this time.");
+                         return;
+                    }
+               }
+               RefreshCategoryBudgetList();
+               ResetCategoryBudgetForm();
+
           }
-          */
      }
 }

@@ -44,6 +44,11 @@
                label3 = new Label();
                label4 = new Label();
                label5 = new Label();
+               Category = new DataGridViewTextBoxColumn();
+               Spent = new DataGridViewTextBoxColumn();
+               Budgeted = new DataGridViewTextBoxColumn();
+               Remaining = new DataGridViewTextBoxColumn();
+               Percent = new DataGridViewTextBoxColumn();
                ((System.ComponentModel.ISupportInitialize)dgvCategoryBreakdown).BeginInit();
                SuspendLayout();
                // 
@@ -153,10 +158,11 @@
                // dgvCategoryBreakdown
                // 
                dgvCategoryBreakdown.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-               dgvCategoryBreakdown.Location = new Point(636, 114);
+               dgvCategoryBreakdown.Columns.AddRange(new DataGridViewColumn[] { Category, Spent, Budgeted, Remaining, Percent });
+               dgvCategoryBreakdown.Location = new Point(329, 83);
                dgvCategoryBreakdown.Name = "dgvCategoryBreakdown";
                dgvCategoryBreakdown.RowHeadersWidth = 51;
-               dgvCategoryBreakdown.Size = new Size(300, 188);
+               dgvCategoryBreakdown.Size = new Size(649, 192);
                dgvCategoryBreakdown.TabIndex = 10;
                // 
                // label1
@@ -203,6 +209,41 @@
                label5.Size = new Size(89, 20);
                label5.TabIndex = 15;
                label5.Text = "Budget Left:";
+               // 
+               // Category
+               // 
+               Category.HeaderText = "Category";
+               Category.MinimumWidth = 6;
+               Category.Name = "Category";
+               Category.Width = 125;
+               // 
+               // Spent
+               // 
+               Spent.HeaderText = "Spent";
+               Spent.MinimumWidth = 6;
+               Spent.Name = "Spent";
+               Spent.Width = 125;
+               // 
+               // Budgeted
+               // 
+               Budgeted.HeaderText = "Budgeted";
+               Budgeted.MinimumWidth = 6;
+               Budgeted.Name = "Budgeted";
+               Budgeted.Width = 125;
+               // 
+               // Remaining
+               // 
+               Remaining.HeaderText = "Remaining";
+               Remaining.MinimumWidth = 6;
+               Remaining.Name = "Remaining";
+               Remaining.Width = 125;
+               // 
+               // Percent
+               // 
+               Percent.HeaderText = "Percent";
+               Percent.MinimumWidth = 6;
+               Percent.Name = "Percent";
+               Percent.Width = 125;
                // 
                // MainMenuForm
                // 
@@ -252,5 +293,10 @@
           private Label label3;
           private Label label4;
           private Label label5;
+          private DataGridViewTextBoxColumn Category;
+          private DataGridViewTextBoxColumn Spent;
+          private DataGridViewTextBoxColumn Budgeted;
+          private DataGridViewTextBoxColumn Remaining;
+          private DataGridViewTextBoxColumn Percent;
      }
 }
