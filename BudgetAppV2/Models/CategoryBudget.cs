@@ -27,5 +27,7 @@ namespace BudgetAppV2.Models
 
                return $"{Limit:C} | {categoryName} | {period}";
           }
+
+          
      }
 }

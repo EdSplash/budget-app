@@ -49,7 +49,7 @@ namespace BudgetAppV2
                     context.Transactions.Add(transaction);
                     context.SaveChanges();
                }
-               
+
                RefreshTransactionList();
                ResetTransactionForm();
           }
@@ -69,7 +69,7 @@ namespace BudgetAppV2
                          cboCategories.Items.Add(category);
                     }
                }
-               
+
           }
           // Updates list of Transactions
           private void RefreshTransactionList()
@@ -89,7 +89,7 @@ namespace BudgetAppV2
                          lstTransactions.Items.Add(transaction);
                     }
                }
-               
+
           }
 
           private void ResetTransactionForm()
@@ -117,20 +117,24 @@ namespace BudgetAppV2
                form.Show();
                this.Hide();
           }
-          
+
           private void btnPeriodBudget_Click(object sender, EventArgs e)
           {
                PeriodBudgetsForm form = new PeriodBudgetsForm();
                form.Show();
                this.Hide();
           }
-          
+
           private void btnCategoryBudgets_Click(object sender, EventArgs e)
           {
                CategoryBudgetsForm form = new CategoryBudgetsForm();
                form.Show();
                this.Hide();
           }
-          
+
+          private void lblAmount_Click(object sender, EventArgs e)
+          {
+
+          }
      }
 }

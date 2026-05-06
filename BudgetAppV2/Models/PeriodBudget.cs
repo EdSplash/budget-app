@@ -18,6 +18,16 @@ namespace BudgetAppV2.Models
           {
                return $"{PeriodStartDate.ToShortDateString()} - {PeriodEndDate.ToShortDateString()} | {TotalLimit:C} ";
           }
-         
+
+          public string DisplayText
+          {
+               get
+               {
+                    
+                    return $"{PeriodStartDate.ToShortDateString()} - {PeriodEndDate.ToShortDateString()} | {TotalLimit:C} ";
+
+               }
+          }
+
      }
 }

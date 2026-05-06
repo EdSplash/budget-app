@@ -105,19 +105,21 @@ namespace BudgetAppV2
 
           private void btnDeleteCategory_Click(object sender, EventArgs e)
           {
+               // Validates that a category is selected
                if (lstCategories.SelectedItem == null)
                {
                     MessageBox.Show("Need to select a category first.");
                     return;
                }
-
+               // Assigns the selected category to a Category object
                Category selectedCategory = (Category)lstCategories.SelectedItem;
+               
 
                DialogResult result = MessageBox.Show($"Delete category '{selectedCategory.Name}'?",
                                                            "Confirm Delete",
                                                            MessageBoxButtons.YesNo,
                                                            MessageBoxIcon.Warning);
-
+               // Asks user for confirmation of deleting a category
                if (result != DialogResult.Yes)
                {
                     return;
@@ -125,8 +127,10 @@ namespace BudgetAppV2
 
                using (var context = new BudgetAppContext())
                {
+                    // Finds the category selected in the database using Category Id 
                     var categoryToDelete = context.Categories.Find(selectedCategory.Id);
 
+                    // Validates if the category is in the database
                     if (categoryToDelete == null)
                     {
                          MessageBox.Show("Couldn't find category");
@@ -134,7 +138,7 @@ namespace BudgetAppV2
                     }
 
                     
-
+                    // If category is being used by a transaction, it can't be deleted
                     try
                     {
                          context.Categories.Remove(categoryToDelete);
@@ -169,7 +173,7 @@ namespace BudgetAppV2
                }
 
                Category selectedCategory = (Category)lstCategories.SelectedItem;
-               // Fills textboc with selected category name
+               // Fills textbox with selected category name
                txtCategoryName.Text = selectedCategory.Name;
                // Selects correct radio button for the selected item type
                if (selectedCategory.Type == CategoryType.Income)

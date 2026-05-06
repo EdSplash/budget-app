@@ -97,12 +97,14 @@ namespace BudgetAppV2
                using (var context = new BudgetAppContext())
                {
                     var categories = context.Categories
-                         .Where(c => c.Type == CategoryType.Expense)
+                         .Where(c => c.Type == CategoryType.Expense) // Gets only 
+                         .OrderBy(c => c.Name)
                          .ToList();
-                    foreach (var category in categories)
-                    {
-                         cboCategories.Items.Add(category);
-                    }
+
+                    cboCategories.DataSource = null;
+                    cboCategories.DataSource = categories; // Gets from categories database
+                    cboCategories.DisplayMember = "Name"; // Displays the Category Name
+                    cboCategories.ValueMember = "Id"; // Gets id property from Database
                }
 
           }
@@ -113,12 +115,15 @@ namespace BudgetAppV2
 
                using (var context = new BudgetAppContext())
                {
-                    var periodBudgets = context.PeriodBudgets.ToList();
+                    // Retrieves objects from database into list
+                    var periodBudgets = context.PeriodBudgets
+                         .OrderByDescending(pb => pb.PeriodStartDate) // Orders by most recent date at top
+                         .ToList();
 
-                    foreach (var periodBudget in periodBudgets)
-                    {
-                         cboPeriodBudgets.Items.Add(periodBudget);
-                    }
+                    cboPeriodBudgets.DataSource = null;
+                    cboPeriodBudgets.DataSource = periodBudgets; // Gets or sets data for ComboBox 
+                    cboPeriodBudgets.DisplayMember = "DisplayText";
+                    cboPeriodBudgets.ValueMember = "Id"; // Gets Id property from Data
                }
 
           }
@@ -163,7 +168,53 @@ namespace BudgetAppV2
 
           private void btnDeleteCB_Click(object sender, EventArgs e)
           {
+               // Validate a category is selected
+               if (lstCategoryBudget.SelectedItem == null)
+               {
+                    MessageBox.Show("Need to select a category budget first.");
+                    return;
+               }
 
+               CategoryBudget selectedCB = (CategoryBudget)lstCategoryBudget.SelectedItem;
+
+               // Null checks the category name
+               string selectedCategoryName = selectedCB.Category?.Name ?? "Unknown Category";
+               // Ask for user deleted confirmation
+               DialogResult result = MessageBox.Show($"Delete category '{selectedCategoryName}'?",
+                                                           "Confirm Delete",
+                                                           MessageBoxButtons.YesNo,
+                                                           MessageBoxIcon.Warning);
+
+               if (result != DialogResult.Yes)
+               {
+                    return;
+               }
+
+               using (var context = new BudgetAppContext())
+               {
+                    // Retrieves the Category Budget from the database
+                    var categoryBudgetToDelete = context.CategoryBudgets.Find(selectedCB.Id);
+
+                    // Checks if the Category Budget got retrieved from the database
+                    if (categoryBudgetToDelete == null)
+                    {
+                         MessageBox.Show("Couldn't find Category Budget");
+                         return;
+                    }
+
+                    // If Category Budget is being used by a transaction, it can't be deleted
+                    try
+                    {
+                         context.CategoryBudgets.Remove(categoryBudgetToDelete);
+                         context.SaveChanges();
+                    }
+                    catch
+                    {
+                         MessageBox.Show("Cannot delete a category that is being used by transactions.");
+                         return;
+                    }
+
+               }
           }
 
           private void btnEditCB_Click(object sender, EventArgs e)
@@ -203,7 +254,7 @@ namespace BudgetAppV2
                Category updatedCategory = (Category)cboCategories.SelectedItem;
                PeriodBudget updatedPeriod = (PeriodBudget)cboPeriodBudgets.SelectedItem;
                decimal updatedLimit = nudLimitAmount.Value;
-               
+
                using (var context = new BudgetAppContext())
                {
                     var categoryBudgetToEdit = context.CategoryBudgets.Find(selectedCategoryBudget.Id);
@@ -241,6 +292,24 @@ namespace BudgetAppV2
                RefreshCategoryBudgetList();
                ResetCategoryBudgetForm();
 
+          }
+
+          private void lstCategoryBudget_SelectedIndexChanged(object sender, EventArgs e)
+          {
+               // Validates an Item is selected from the list
+               if (lstCategoryBudget.SelectedItem == null)
+               {
+                    return;
+               }
+
+               // Display the selected item in the UI
+               CategoryBudget selectedCB = (CategoryBudget)lstCategoryBudget.SelectedItem;
+
+               // Display the selected Object in UI
+               cboCategories.SelectedValue = selectedCB.CategoryId;
+               cboPeriodBudgets.SelectedValue = selectedCB.PeriodBudgetId;
+               nudLimitAmount.Value = selectedCB.Limit;
+               
           }
      }
 }

@@ -43,7 +43,7 @@
                // nudAmount
                // 
                nudAmount.DecimalPlaces = 2;
-               nudAmount.Location = new Point(243, 78);
+               nudAmount.Location = new Point(107, 68);
                nudAmount.Margin = new Padding(3, 4, 3, 4);
                nudAmount.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
                nudAmount.Name = "nudAmount";
@@ -52,7 +52,7 @@
                // 
                // dtpTransactionDate
                // 
-               dtpTransactionDate.Location = new Point(243, 182);
+               dtpTransactionDate.Location = new Point(515, 68);
                dtpTransactionDate.Margin = new Padding(3, 4, 3, 4);
                dtpTransactionDate.Name = "dtpTransactionDate";
                dtpTransactionDate.Size = new Size(262, 27);
@@ -61,17 +61,17 @@
                // lstTransactions
                // 
                lstTransactions.FormattingEnabled = true;
-               lstTransactions.Location = new Point(458, 248);
+               lstTransactions.Location = new Point(59, 258);
                lstTransactions.Margin = new Padding(3, 4, 3, 4);
                lstTransactions.Name = "lstTransactions";
-               lstTransactions.Size = new Size(319, 264);
+               lstTransactions.Size = new Size(695, 244);
                lstTransactions.TabIndex = 2;
                // 
                // cboCategories
                // 
                cboCategories.DropDownStyle = ComboBoxStyle.DropDownList;
                cboCategories.FormattingEnabled = true;
-               cboCategories.Location = new Point(243, 130);
+               cboCategories.Location = new Point(322, 67);
                cboCategories.Margin = new Padding(3, 4, 3, 4);
                cboCategories.Name = "cboCategories";
                cboCategories.Size = new Size(138, 28);
@@ -79,7 +79,7 @@
                // 
                // btnAddTransaction
                // 
-               btnAddTransaction.Location = new Point(244, 321);
+               btnAddTransaction.Location = new Point(135, 211);
                btnAddTransaction.Margin = new Padding(3, 4, 3, 4);
                btnAddTransaction.Name = "btnAddTransaction";
                btnAddTransaction.Size = new Size(137, 39);
@@ -90,27 +90,28 @@
                // 
                // txtDescription
                // 
-               txtDescription.Location = new Point(184, 248);
+               txtDescription.Location = new Point(205, 103);
                txtDescription.Margin = new Padding(3, 4, 3, 4);
                txtDescription.Multiline = true;
                txtDescription.Name = "txtDescription";
-               txtDescription.Size = new Size(251, 54);
+               txtDescription.Size = new Size(372, 54);
                txtDescription.TabIndex = 5;
                txtDescription.Text = "Enter Description";
                // 
                // lblAmount
                // 
                lblAmount.AutoSize = true;
-               lblAmount.Location = new Point(171, 80);
+               lblAmount.Location = new Point(36, 68);
                lblAmount.Name = "lblAmount";
                lblAmount.Size = new Size(65, 20);
                lblAmount.TabIndex = 6;
                lblAmount.Text = "Amount:";
+               lblAmount.Click += lblAmount_Click;
                // 
                // lblDate
                // 
                lblDate.AutoSize = true;
-               lblDate.Location = new Point(171, 182);
+               lblDate.Location = new Point(466, 70);
                lblDate.Name = "lblDate";
                lblDate.Size = new Size(44, 20);
                lblDate.TabIndex = 7;
@@ -119,7 +120,7 @@
                // lblCategory
                // 
                lblCategory.AutoSize = true;
-               lblCategory.Location = new Point(171, 130);
+               lblCategory.Location = new Point(244, 70);
                lblCategory.Name = "lblCategory";
                lblCategory.Size = new Size(72, 20);
                lblCategory.TabIndex = 8;

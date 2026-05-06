@@ -90,6 +90,7 @@
                lstCategoryBudget.Name = "lstCategoryBudget";
                lstCategoryBudget.Size = new Size(371, 264);
                lstCategoryBudget.TabIndex = 4;
+               lstCategoryBudget.SelectedIndexChanged += lstCategoryBudget_SelectedIndexChanged;
                // 
                // label1
                // 
@@ -170,11 +171,11 @@
           private System.Windows.Forms.ComboBox cboPeriodBudgets;
           private System.Windows.Forms.NumericUpDown nudLimitAmount;
           private System.Windows.Forms.Button btnAddCategoryBudget;
-          private System.Windows.Forms.ListBox lstCategoryBudget;
           private System.Windows.Forms.Label label1;
           private System.Windows.Forms.Label label2;
           private System.Windows.Forms.Label lblLimit;
           private Button btnDeleteCB;
           private Button btnEditCB;
+          private ListBox lstCategoryBudget;
      }
 }
