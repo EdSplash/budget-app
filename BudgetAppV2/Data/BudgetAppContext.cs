@@ -3,6 +3,7 @@ using BudgetAppV2.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace BudgetAppV2.Data
 {
@@ -17,10 +18,26 @@ namespace BudgetAppV2.Data
           // Replaces the base OnConfiguring
           protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
           {
+               
                if (!optionsBuilder.IsConfigured)  // Checks if it was already configured
                {
-                    optionsBuilder.UseSqlite("Data Source=budgetapp.db");  //Sets EF core to use the SQLite database provider
+                    //optionsBuilder.UseSqlite("Data Source=budgetapp.db");  //Sets EF core to use the SQLite database provider
+
+                    
+                    string folder = Path.Combine(
+                         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), // Get app path data
+                         "BudgetAppV2" // Adds this folder
+                         );
+
+                    Directory.CreateDirectory(folder); // create folder if missing
+
+                    string dbPath = Path.Combine(folder, "budgetapp.db"); // Build full db path
+
+                    optionsBuilder.UseSqlite($"Data Source={dbPath}"); // Tells Sqlite to use this file
                }
+               
+
+
           }
 
           protected override void OnModelCreating(ModelBuilder modelBuilder)
