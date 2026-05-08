@@ -240,7 +240,7 @@ namespace BudgetAppV2
                     return;
                }
 
-               // Validation for a poitivve number
+               // Validation for a positive number
                if (nudLimitAmount.Value <= 0)
                {
                     MessageBox.Show("Must enter a value that is non-negative and greater than 0.");
@@ -302,7 +302,7 @@ namespace BudgetAppV2
                     return;
                }
 
-               // Display the selected item in the UI
+               // Assings selected Item to variable
                CategoryBudget selectedCB = (CategoryBudget)lstCategoryBudget.SelectedItem;
 
                // Display the selected Object in UI

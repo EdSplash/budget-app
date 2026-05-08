@@ -23,7 +23,7 @@ namespace BudgetAppV2
                CategoryBudgetsForm form = new CategoryBudgetsForm();
                form.ShowDialog();
 
-               LoadPeriodBudgets();
+               //LoadPeriodBudgets();
                LoadDashboardData();
           }
 
@@ -32,7 +32,7 @@ namespace BudgetAppV2
                CategoriesForm form = new CategoriesForm();
                form.ShowDialog();
 
-               LoadPeriodBudgets();
+               //LoadPeriodBudgets();
                LoadDashboardData();
           }
 
@@ -50,7 +50,7 @@ namespace BudgetAppV2
                PeriodBudgetsForm form = new PeriodBudgetsForm();
                form.ShowDialog();
 
-               LoadPeriodBudgets();
+               //LoadPeriodBudgets();
                LoadDashboardData();
           }
 
@@ -65,7 +65,7 @@ namespace BudgetAppV2
                using (var context = new BudgetAppContext())
                {
                     var periodBudgets = context.PeriodBudgets
-                         .OrderBy(pb => pb.PeriodStartDate)
+                         .OrderByDescending(pb => pb.PeriodStartDate)
                          .ToList();
 
                     cboPeriod.DataSource = periodBudgets;  // Where does cbo get data from 
@@ -195,9 +195,9 @@ namespace BudgetAppV2
                          // Adds all the stats to the table
                          dgvCategoryBreakdown.Rows.Add(
                               categoryName,
-                              amountSpent,
+                              amountSpent.ToString("C"),
                               budgetedAmount.ToString("C"),
-                              budgetRemaining,
+                              budgetRemaining.ToString("C"),
                               percentUsed
                               );
 
@@ -231,8 +231,8 @@ namespace BudgetAppV2
 
                          dgvCategoryBreakdown.Rows.Add(
                              group.CategoryName,
-                             budgetedAmount.ToString("C"),
                              spentAmount.ToString("C"),
+                             budgetedAmount.ToString("C"),
                              remainingAmount.ToString("C"),
                              percentUsed
                          );

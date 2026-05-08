@@ -36,15 +36,17 @@
                lblStartDate = new Label();
                lblEndDate = new Label();
                lblTotalLimit = new Label();
+               btnEditPB = new Button();
+               btnDeletePB = new Button();
                ((System.ComponentModel.ISupportInitialize)nudTotalLimit).BeginInit();
                SuspendLayout();
                // 
                // btnAddPeriodBudget
                // 
-               btnAddPeriodBudget.Location = new Point(430, 187);
+               btnAddPeriodBudget.Location = new Point(56, 208);
                btnAddPeriodBudget.Margin = new Padding(3, 4, 3, 4);
                btnAddPeriodBudget.Name = "btnAddPeriodBudget";
-               btnAddPeriodBudget.Size = new Size(136, 36);
+               btnAddPeriodBudget.Size = new Size(179, 32);
                btnAddPeriodBudget.TabIndex = 0;
                btnAddPeriodBudget.Text = "Add Period Budget";
                btnAddPeriodBudget.UseVisualStyleBackColor = true;
@@ -53,7 +55,7 @@
                // nudTotalLimit
                // 
                nudTotalLimit.DecimalPlaces = 2;
-               nudTotalLimit.Location = new Point(97, 96);
+               nudTotalLimit.Location = new Point(97, 38);
                nudTotalLimit.Margin = new Padding(3, 4, 3, 4);
                nudTotalLimit.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
                nudTotalLimit.Name = "nudTotalLimit";
@@ -62,7 +64,7 @@
                // 
                // dtpPeriodStartDate
                // 
-               dtpPeriodStartDate.Location = new Point(94, 187);
+               dtpPeriodStartDate.Location = new Point(337, 38);
                dtpPeriodStartDate.Margin = new Padding(3, 4, 3, 4);
                dtpPeriodStartDate.Name = "dtpPeriodStartDate";
                dtpPeriodStartDate.Size = new Size(260, 27);
@@ -70,7 +72,7 @@
                // 
                // dtpPeriodEndDate
                // 
-               dtpPeriodEndDate.Location = new Point(88, 289);
+               dtpPeriodEndDate.Location = new Point(337, 88);
                dtpPeriodEndDate.Margin = new Padding(3, 4, 3, 4);
                dtpPeriodEndDate.Name = "dtpPeriodEndDate";
                dtpPeriodEndDate.Size = new Size(260, 27);
@@ -79,16 +81,17 @@
                // lstPeriodBudgets
                // 
                lstPeriodBudgets.FormattingEnabled = true;
-               lstPeriodBudgets.Location = new Point(367, 248);
+               lstPeriodBudgets.Location = new Point(24, 248);
                lstPeriodBudgets.Margin = new Padding(3, 4, 3, 4);
                lstPeriodBudgets.Name = "lstPeriodBudgets";
-               lstPeriodBudgets.Size = new Size(431, 244);
+               lstPeriodBudgets.Size = new Size(774, 244);
                lstPeriodBudgets.TabIndex = 5;
+               lstPeriodBudgets.SelectedIndexChanged += lstPeriodBudgets_SelectedIndexChanged;
                // 
                // lblStartDate
                // 
                lblStartDate.AutoSize = true;
-               lblStartDate.Location = new Point(12, 187);
+               lblStartDate.Location = new Point(255, 40);
                lblStartDate.Name = "lblStartDate";
                lblStartDate.Size = new Size(76, 20);
                lblStartDate.TabIndex = 11;
@@ -97,7 +100,7 @@
                // lblEndDate
                // 
                lblEndDate.AutoSize = true;
-               lblEndDate.Location = new Point(12, 294);
+               lblEndDate.Location = new Point(261, 88);
                lblEndDate.Name = "lblEndDate";
                lblEndDate.Size = new Size(70, 20);
                lblEndDate.TabIndex = 12;
@@ -106,11 +109,31 @@
                // lblTotalLimit
                // 
                lblTotalLimit.AutoSize = true;
-               lblTotalLimit.Location = new Point(12, 96);
+               lblTotalLimit.Location = new Point(12, 38);
                lblTotalLimit.Name = "lblTotalLimit";
                lblTotalLimit.Size = new Size(79, 20);
                lblTotalLimit.TabIndex = 13;
                lblTotalLimit.Text = "Total Limit";
+               // 
+               // btnEditPB
+               // 
+               btnEditPB.Location = new Point(303, 208);
+               btnEditPB.Name = "btnEditPB";
+               btnEditPB.Size = new Size(179, 32);
+               btnEditPB.TabIndex = 14;
+               btnEditPB.Text = "Edit Period Budget";
+               btnEditPB.UseVisualStyleBackColor = true;
+               btnEditPB.Click += btnEditPB_Click;
+               // 
+               // btnDeletePB
+               // 
+               btnDeletePB.Location = new Point(548, 208);
+               btnDeletePB.Name = "btnDeletePB";
+               btnDeletePB.Size = new Size(179, 32);
+               btnDeletePB.TabIndex = 15;
+               btnDeletePB.Text = "Delete Period Budget";
+               btnDeletePB.UseVisualStyleBackColor = true;
+               btnDeletePB.Click += btnDeletePB_Click;
                // 
                // PeriodBudgetsForm
                // 
@@ -118,6 +141,8 @@
                AutoScaleMode = AutoScaleMode.Font;
                BackColor = Color.Lavender;
                ClientSize = new Size(800, 562);
+               Controls.Add(btnDeletePB);
+               Controls.Add(btnEditPB);
                Controls.Add(lblTotalLimit);
                Controls.Add(lblEndDate);
                Controls.Add(lblStartDate);
@@ -146,5 +171,7 @@
           private System.Windows.Forms.Label lblStartDate;
           private System.Windows.Forms.Label lblEndDate;
           private System.Windows.Forms.Label lblTotalLimit;
+          private Button btnEditPB;
+          private Button btnDeletePB;
      }
 }
