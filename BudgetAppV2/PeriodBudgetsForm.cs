@@ -232,9 +232,11 @@ namespace BudgetAppV2
                     }
                     catch
                     {
-                         MessageBox.Show("Period Budget couldn't be deleted at this time");
+                         MessageBox.Show("Cannot delete a Period Budget that is currently being used by a Category Budget.");
                          return;
                     }
+                    RefreshPeriodBudgetList();
+                    ResetPeriodBudgetForm();
                }
 
           }

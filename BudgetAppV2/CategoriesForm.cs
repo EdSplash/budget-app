@@ -114,12 +114,12 @@ namespace BudgetAppV2
                // Assigns the selected category to a Category object
                Category selectedCategory = (Category)lstCategories.SelectedItem;
                
-
+               // Ask for user confirmation
                DialogResult result = MessageBox.Show($"Delete category '{selectedCategory.Name}'?",
                                                            "Confirm Delete",
                                                            MessageBoxButtons.YesNo,
                                                            MessageBoxIcon.Warning);
-               // Asks user for confirmation of deleting a category
+               // Return if user clicks no
                if (result != DialogResult.Yes)
                {
                     return;
@@ -133,7 +133,7 @@ namespace BudgetAppV2
                     // Validates if the category is in the database
                     if (categoryToDelete == null)
                     {
-                         MessageBox.Show("Couldn't find category");
+                         MessageBox.Show("Couldn't find category in the database");
                          return;
                     }
 
@@ -173,8 +173,10 @@ namespace BudgetAppV2
                }
 
                Category selectedCategory = (Category)lstCategories.SelectedItem;
+               
                // Fills textbox with selected category name
                txtCategoryName.Text = selectedCategory.Name;
+               
                // Selects correct radio button for the selected item type
                if (selectedCategory.Type == CategoryType.Income)
                {

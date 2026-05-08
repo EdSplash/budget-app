@@ -90,6 +90,9 @@ namespace BudgetAppV2
                RefreshCategoryBudgetList();
                ResetCategoryBudgetForm();
           }
+          // Load Categories into cbo
+          // Also helps lstCategoryBudgets_SelectedIndexChanged
+          // display category name in cbo
           private void LoadCategories()
           {
                cboCategories.Items.Clear();
@@ -97,8 +100,8 @@ namespace BudgetAppV2
                using (var context = new BudgetAppContext())
                {
                     var categories = context.Categories
-                         .Where(c => c.Type == CategoryType.Expense) // Gets only 
-                         .OrderBy(c => c.Name)
+                         .Where(c => c.Type == CategoryType.Expense) // Gets only Expense Category Type
+                         .OrderBy(c => c.Name) 
                          .ToList();
 
                     cboCategories.DataSource = null;
@@ -214,6 +217,9 @@ namespace BudgetAppV2
                          return;
                     }
 
+                    RefreshCategoryBudgetList();
+                    ResetCategoryBudgetForm();
+
                }
           }
 
@@ -229,7 +235,7 @@ namespace BudgetAppV2
                // Checks if a category is selected in Category cbo
                if (cboCategories.SelectedItem == null)
                {
-                    MessageBox.Show("Must asign a category.");
+                    MessageBox.Show("Must assign a category.");
                     return;
                }
 

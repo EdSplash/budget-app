@@ -54,20 +54,23 @@ namespace BudgetAppV2
                ResetTransactionForm();
           }
           // Loads categories into cbo
+          // Also helps lstTransactions_SelectedIndexChanged method
+          // display the category name into cboCategory
           private void LoadCategories()
           {
                cboCategories.Items.Clear();
 
                using (var context = new BudgetAppContext())
                {
-                    // Create a list of categories from db
-                    var categories = context.Categories.ToList();
+                    var categories = context.Categories
+                         .OrderBy(c => c.Name)
+                         .ThenBy(c => c.Type)
+                         .ToList();
 
-                    // Insert each category object into cbo
-                    foreach (var category in categories)
-                    {
-                         cboCategories.Items.Add(category);
-                    }
+                    cboCategories.DataSource = null;
+                    cboCategories.DataSource = categories; // Gets from categories database
+                    cboCategories.DisplayMember = "DisplayText"; // Displays the Category Name
+                    cboCategories.ValueMember = "Id"; // Gets id property from Database
                }
 
           }
@@ -81,6 +84,7 @@ namespace BudgetAppV2
                     // Retrieves transactions from database and inserts them in a list
                     var transactions = context.Transactions
                          .Include(t => t.Category) // For each transaction, also load its related category object
+                         .OrderByDescending(t => t.Date) // Most recent transactions at top
                          .ToList();
 
                     // Insert each transactin object into the ListBox
@@ -132,8 +136,136 @@ namespace BudgetAppV2
                this.Hide();
           }
 
-          private void lblAmount_Click(object sender, EventArgs e)
+          private void btnEditTransaction_Click(object sender, EventArgs e)
           {
+               // Validate an item is selected from list
+               if (lstTransactions.SelectedItem == null)
+               {
+                    MessageBox.Show("Please select an item from list to edit");
+                    return;
+               }
+
+               // Validate a number greater than 0 is in nud
+               if (nudAmount.Value <= 0)
+               {
+                    MessageBox.Show("Amount must be greater than 0");
+                    return;
+               }
+
+               // Validates a category is selected in Category cbo
+               if (cboCategories.SelectedItem == null)
+               {
+                    MessageBox.Show("Must assign a category.");
+                    return;
+               }
+
+               Transaction selectedTransaction = (Transaction)lstTransactions.SelectedItem;
+
+               // Update properties
+               decimal updatedAmount = nudAmount.Value;
+               Category updatedCategory = (Category)cboCategories.SelectedItem;
+               DateTime updatedDate = dtpTransactionDate.Value.Date;
+               string updatedDescription = txtDescription.Text;
+
+               using (var context = new BudgetAppContext())
+               {
+                    var transactionToEdit = context.Transactions.Find(selectedTransaction.Id);
+
+                    // Validate selected item is in database
+                    if (transactionToEdit == null)
+                    {
+                         MessageBox.Show("Couldn't find the selected Transaction in database");
+                         return;
+                    }
+
+                    try
+                    {
+                         transactionToEdit.Amount = updatedAmount;
+                         transactionToEdit.CategoryId = updatedCategory.Id;
+                         transactionToEdit.Date = updatedDate;
+                         transactionToEdit.Description = updatedDescription;
+                         context.SaveChanges();
+                    }
+                    catch
+                    {
+                         MessageBox.Show("This edit could not be made at this time.");
+                         return;
+                    }
+
+                    RefreshTransactionList();
+                    ResetTransactionForm();
+               }
+
+
+          }
+
+          private void btnDeleteTransaction_Click(object sender, EventArgs e)
+          {
+               // Validate a transaction is selected from list
+               if (lstTransactions.SelectedItem == null)
+               {
+                    MessageBox.Show("Must select a transaction from list to edit.");
+                    return;
+               }
+
+               // Assign selected Transaction
+               Transaction selectedTransaction = (Transaction)lstTransactions.SelectedItem;
+
+               // Ask for user confirmation
+               DialogResult result = MessageBox.Show($"Delete transaction '{selectedTransaction}?",
+                                                            "Confirm Delete",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Warning);
+               if (result != DialogResult.Yes)
+               {
+                    return;
+               }
+
+               using (var context = new BudgetAppContext())
+               {
+                    // Finds selectedTransaction in database and assigns it
+                    var transactionToDelete = context.Transactions.Find(selectedTransaction.Id);
+
+                    // Validates if transactionToDelete is in database
+                    if (transactionToDelete == null)
+                    {
+                         MessageBox.Show("Couldn't find the transaction in the database.");
+                         return;
+                    }
+
+                    try
+                    {
+                         context.Transactions.Remove(transactionToDelete);
+                         context.SaveChanges();
+                    }
+                    catch
+                    {
+                         MessageBox.Show("Cannot delete Transaction at this time");
+                         return;
+                    }
+
+
+               }
+               RefreshTransactionList();
+               ResetTransactionForm();
+
+
+          }
+
+          private void lstTransactions_SelectedIndexChanged(object sender, EventArgs e)
+          {
+               // Only run when an Item is selected
+               if (lstTransactions.SelectedItem == null)
+               {
+                    return;
+               }
+
+               Transaction selectedTransaction = (Transaction)lstTransactions.SelectedItem;
+
+               nudAmount.Value = selectedTransaction.Amount;
+               cboCategories.SelectedValue = selectedTransaction.CategoryId;
+               dtpTransactionDate.Value = selectedTransaction.Date;
+               txtDescription.Text = selectedTransaction.Description;
 
           }
      }

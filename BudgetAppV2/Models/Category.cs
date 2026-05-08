@@ -26,5 +26,14 @@ namespace BudgetAppV2.Models
                return $"{Name} - {Type}";
           }
 
+          public string DisplayText
+          {
+               get
+               {
+                    return $"{Name} - {Type}";
+
+               }
+          }
+
      }
 }

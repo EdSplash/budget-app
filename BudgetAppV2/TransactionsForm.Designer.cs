@@ -37,6 +37,8 @@
                lblAmount = new Label();
                lblDate = new Label();
                lblCategory = new Label();
+               btnEditTransaction = new Button();
+               btnDeleteTransaction = new Button();
                ((System.ComponentModel.ISupportInitialize)nudAmount).BeginInit();
                SuspendLayout();
                // 
@@ -66,23 +68,24 @@
                lstTransactions.Name = "lstTransactions";
                lstTransactions.Size = new Size(695, 244);
                lstTransactions.TabIndex = 2;
+               lstTransactions.SelectedIndexChanged += lstTransactions_SelectedIndexChanged;
                // 
                // cboCategories
                // 
                cboCategories.DropDownStyle = ComboBoxStyle.DropDownList;
                cboCategories.FormattingEnabled = true;
-               cboCategories.Location = new Point(322, 67);
+               cboCategories.Location = new Point(313, 70);
                cboCategories.Margin = new Padding(3, 4, 3, 4);
                cboCategories.Name = "cboCategories";
-               cboCategories.Size = new Size(138, 28);
+               cboCategories.Size = new Size(147, 28);
                cboCategories.TabIndex = 3;
                // 
                // btnAddTransaction
                // 
-               btnAddTransaction.Location = new Point(135, 211);
+               btnAddTransaction.Location = new Point(137, 211);
                btnAddTransaction.Margin = new Padding(3, 4, 3, 4);
                btnAddTransaction.Name = "btnAddTransaction";
-               btnAddTransaction.Size = new Size(137, 39);
+               btnAddTransaction.Size = new Size(147, 38);
                btnAddTransaction.TabIndex = 4;
                btnAddTransaction.Text = "Add Transaction";
                btnAddTransaction.UseVisualStyleBackColor = true;
@@ -106,7 +109,6 @@
                lblAmount.Size = new Size(65, 20);
                lblAmount.TabIndex = 6;
                lblAmount.Text = "Amount:";
-               lblAmount.Click += lblAmount_Click;
                // 
                // lblDate
                // 
@@ -126,12 +128,34 @@
                lblCategory.TabIndex = 8;
                lblCategory.Text = "Category:";
                // 
+               // btnEditTransaction
+               // 
+               btnEditTransaction.Location = new Point(322, 211);
+               btnEditTransaction.Name = "btnEditTransaction";
+               btnEditTransaction.Size = new Size(147, 38);
+               btnEditTransaction.TabIndex = 9;
+               btnEditTransaction.Text = "Edit Transaction";
+               btnEditTransaction.UseVisualStyleBackColor = true;
+               btnEditTransaction.Click += btnEditTransaction_Click;
+               // 
+               // btnDeleteTransaction
+               // 
+               btnDeleteTransaction.Location = new Point(515, 211);
+               btnDeleteTransaction.Name = "btnDeleteTransaction";
+               btnDeleteTransaction.Size = new Size(147, 38);
+               btnDeleteTransaction.TabIndex = 10;
+               btnDeleteTransaction.Text = "Delete Transaction";
+               btnDeleteTransaction.UseVisualStyleBackColor = true;
+               btnDeleteTransaction.Click += btnDeleteTransaction_Click;
+               // 
                // TransactionsForm
                // 
                AutoScaleDimensions = new SizeF(8F, 20F);
                AutoScaleMode = AutoScaleMode.Font;
                BackColor = Color.Lavender;
                ClientSize = new Size(800, 562);
+               Controls.Add(btnDeleteTransaction);
+               Controls.Add(btnEditTransaction);
                Controls.Add(lblCategory);
                Controls.Add(lblDate);
                Controls.Add(lblAmount);
@@ -162,5 +186,7 @@
           private System.Windows.Forms.Label lblAmount;
           private System.Windows.Forms.Label lblDate;
           private System.Windows.Forms.Label lblCategory;
+          private Button btnEditTransaction;
+          private Button btnDeleteTransaction;
      }
 }
