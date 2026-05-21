@@ -7,31 +7,36 @@ A C# Windows Forms desktop application for tracking personal income, expenses, a
 - Add and review transactions with amount, date, category, and description
 - Create period-based budgets
 - Assign category-specific spending limits within a budget period
+- View Dashboard summaries include:
+    - Total Income
+    - Total Expenses
+    - Net Total
+    - Period Limit
+    - Remaining Budget
+    - Table with specific Category Budgets
 
 ## Tech Stack
 - C#
 - Windows Forms
 - .NET
 - Object-oriented design
-- In-memory data management using service classes
+- Microsoft EF Core with SQLite
 
 ## Project Structure
 - `Models/` – application data models
-- `Services/` – shared in-memory application data
+- `Data/` – Database management
 - `CategoriesForm` – category management
 - `TransactionsForm` – transaction entry and viewing
 - `PeriodBudgetsForm` – budget period setup
 - `CategoryBudgetsForm` – category spending limits
+- `MainMenuForm` - dashboard for viewing periodic stats
 
 ## Why I Built This
 I originally built this project for school, then continued developing it into a practical budgeting application that I can use in everyday life while strengthening my C# and desktop application development skills.
 
 ## Planned Improvements
-- Save and load data from files or a database
-- Dashboard for totals and spending summaries
-- Monthly reports and charts
+- Periodic reports and charts
 - Recurring transactions
-- Budget alerts when limits are exceeded
 
 ## How to Run
 1. Clone the repository
