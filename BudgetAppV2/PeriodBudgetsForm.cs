@@ -60,7 +60,9 @@ namespace BudgetAppV2
                using (var context = new BudgetAppContext())
                {
                     // Create a list of PeriodBudgets from db
-                    var periodBudgets = context.PeriodBudgets.ToList();
+                    var periodBudgets = context.PeriodBudgets
+                         .OrderByDescending(t => t.PeriodStartDate)
+                         .ToList();
 
                     // Insert each PeriodBudget object into listbox
                     foreach (var periodBudget in periodBudgets)

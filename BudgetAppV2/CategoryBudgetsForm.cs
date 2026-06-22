@@ -141,6 +141,7 @@ namespace BudgetAppV2
                     var categoryBudgets = context.CategoryBudgets
                          .Include(cb => cb.PeriodBudget) // For each CategoryBudget, also load its related PeriodBudget object
                          .Include(cb => cb.Category) // Load Related category object
+                         .OrderByDescending(cb => cb.PeriodBudget.PeriodStartDate)
                          .ToList();
 
                     // Insert each CategoryBudget object into the ListBox
